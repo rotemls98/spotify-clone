@@ -1,0 +1,37 @@
+
+
+.select {
+    cursor: pointer;
+    display: flex;
+    margin-left: 32px;
+    padding: 2px;
+    background-color: black;
+    color: white;
+    align-items: center;
+    border-radius: 32px;
+}
+
+.image {
+    margin-left: 8px;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.accountIcon {
+    margin-left: 8px;
+    fill: #3a3939;
+    height: 32px;
+    width: 32px;
+}
+
+.arrowIcon {
+    fill: white;
+    height: 24px;
+    width: 24px;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 14px;
+}

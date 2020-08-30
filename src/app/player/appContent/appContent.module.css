@@ -1,0 +1,12 @@
+
+
+
+.content {
+    grid-area: content;
+    background-color: #121212;
+    color: white
+}
+
+.innerContent {
+    margin-top: 64px;
+}

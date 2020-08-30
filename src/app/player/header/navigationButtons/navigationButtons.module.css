@@ -1,0 +1,33 @@
+
+.buttons {
+    margin-right: 32px;
+}
+
+.historyButton {
+    background-color: rgb(16, 16, 16);
+    outline: none;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    text-align: center;
+    border: none;
+    align-items: center;
+    margin: 0 8px;
+    cursor: pointer;
+}
+
+.historyButton:disabled {
+cursor: not-allowed;
+}
+
+.historyButton:disabled > svg {
+fill: grey;
+}
+
+
+.historyButton > svg {
+height: 24px;
+width: 24px;
+fill: white
+}

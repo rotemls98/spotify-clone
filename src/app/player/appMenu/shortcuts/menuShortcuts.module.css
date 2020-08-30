@@ -1,0 +1,32 @@
+.option  {
+    padding: 4px 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color: grey;
+    fill: grey;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.option.selected {
+    color: white;
+    fill: white;
+    background-color: #393838;
+    border-radius: 4px;
+}
+
+.option:hover, .option:focus {
+    color: white;
+    fill: white;
+}
+
+.option > svg {
+    margin-left: 12px;
+    height: 32px;
+    width: 32px;
+}
+
+.shortcuts {
+    margin-top: 16px;
+}

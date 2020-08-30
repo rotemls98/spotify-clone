@@ -1,0 +1,11 @@
+
+
+.player {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: 
+        "nav-bar content content"
+        "play-bar play-bar play-bar";
+}

@@ -1,0 +1,22 @@
+.playlist {
+  font-size: 14px;
+  padding: 8px 0;
+  color: #b3b3b3;
+  align-items: center;
+  text-decoration: none;
+}
+
+.playlist:hover, .playlist:focus, .playlist.selected {
+    color: white;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.list {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,23 @@
+
+
+.appMenu {
+    grid-area: nav-bar;
+    width: 240px;
+    color: grey;
+    padding: 8px;
+    background-color: #040404;
+}
+
+.menuLogo {
+    color: white;
+    margin-top: 16px;
+    margin-left: 64px;
+    margin-right: 16px;
+    padding-bottom: 4px;
+}
+
+.divider {
+    border: none;
+    background-color: grey;
+    height: 1px;
+}
