@@ -5,8 +5,19 @@ import { Link } from "react-router-dom";
 import styles from "./userMenu.module.css";
 
 export default function UserMenu({ user, disconnect, ...otherProps }) {
+  const options = {
+    modifiers: [
+      {
+        name: "offset",
+        options: {
+          offset: [0, 8],
+        },
+      },
+    ],
+  };
+
   return (
-    <Menu className={styles.menu} {...otherProps}>
+    <Menu className={styles.menu} options={options} {...otherProps}>
       <Link to={`/user/${user.id}`} className={styles.item}>
         פרופיל
       </Link>

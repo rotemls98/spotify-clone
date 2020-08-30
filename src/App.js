@@ -26,7 +26,7 @@ const useLogin = () => {
         setToken(urlToken);
       }
     }
-  }, [token]);
+  }, [token, setToken]);
 
   useEffect(() => {
     if (token) {
@@ -46,12 +46,12 @@ const useLogin = () => {
           }
         });
     }
-  }, [token]);
+  }, [token, setToken]);
 
   const disconnect = useCallback(() => {
     setToken("");
     window.location.replace(window.location.origin);
-  }, []);
+  }, [setToken]);
 
   return { user, loading, token, disconnect };
 };
