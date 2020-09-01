@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import classNames from 'classnames';
 import { CurrentUserContext } from "../../../CurrentUserContext";
 import { mdiMenuDown, mdiAccountCircle } from "@mdi/js";
 import Icon from "../../../../common/components/Icon";
@@ -11,6 +12,8 @@ export default function CurrentUserSelect() {
   const [open, setOpen] = useState(false);
   const image = user.images[0].url;
 
+
+  const arrowClassname = classNames(styles.arrowIcon, open && styles.open);
   return (
     <div
       ref={setElement}
@@ -24,7 +27,7 @@ export default function CurrentUserSelect() {
       )}
 
       <div className={styles.name}>{user.display_name}</div>
-      <Icon className={styles.arrowIcon} path={mdiMenuDown} />
+      <Icon className={arrowClassname} path={mdiMenuDown} />
       <UserMenu
         open={open}
         user={user}

@@ -6,6 +6,7 @@ import Player from "./app/player/Player";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { accessUrl } from "./spotifyConfig";
 import { CurrentUserContext } from "./app/CurrentUserContext";
+import Sdk from "./app/providers/Sdk";
 
 export const spotifyApi = new SpotifyWebApi();
 
@@ -76,7 +77,9 @@ function App() {
             {firstLogin && <Redirect to="/login" />}
             {user && (
               <Route path="/">
+                <Sdk>
                 <Player />
+                </Sdk>
               </Route>
             )}
           </Switch>
