@@ -10,7 +10,12 @@ export default function CurrentUserSelect() {
   const { user, disconnect } = useContext(CurrentUserContext);
   const [element, setElement] = useState(null);
   const [open, setOpen] = useState(false);
-  const image = user.images[0].url;
+
+
+  let imageURL;
+  if (user.images.length) {
+    imageURL = user.images[0].url;
+  }
 
 
   const arrowClassname = classNames(styles.arrowIcon, open && styles.open);
@@ -20,8 +25,8 @@ export default function CurrentUserSelect() {
       className={styles.select}
       onClick={() => setOpen((prev) => !prev)}
     >
-      {image ? (
-        <img className={styles.image} src={image} alt="" />
+      {imageURL ? (
+        <img className={styles.image} src={imageURL} alt="" />
       ) : (
         <Icon className={styles.accountIcon} path={mdiAccountCircle} />
       )}

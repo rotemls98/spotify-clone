@@ -1,18 +1,14 @@
-import { useReducer, useEffect } from "react";
-import currentTrack, { actions } from "./currentTrack";
+import { useEffect, useState } from "react";
 import { spotifyApi } from "../../App";
 import { loadScript } from "../../utils/utils";
 
 export default function useSetupPlayer() {
-  const [state, dispatch] = useReducer(currentTrack, {
-    playerState: null,
-    isPlayerReady: false,
-    deviceId: null,
-    loading: false,
-    error: null,
-  });
+  const [deviceId, setDeviceId] = useState("");
+  const [playback, setPlayback] = useState(null);
+  const [error, setError] = useState(null);
+  const [isReady, setIsReady] = useState(false);
+  const [player, setPlayer] = useState(null);
 
-  const { deviceId } = state;
   useEffect(() => {
     window.onSpotifyWebPlaybackSDKReady = () => {
       const player = new window.Spotify.Player({
@@ -20,54 +16,40 @@ export default function useSetupPlayer() {
         getOAuthToken: (cb) => cb(spotifyApi.getAccessToken()),
       });
 
-      window.player = player;
+      setPlayer(player);
 
-      player.addListener("initialization_error", ({ message }) => {
-        console.error(message);
-      });
-      player.addListener("authentication_error", ({ message }) => {
-        console.error(message);
-      });
-      player.addListener("account_error", ({ message }) => {
-        console.error(message);
-      });
-      player.addListener("playback_error", ({ message }) => {
-        console.error(message);
-      });
-
+      player.addListener("initialization_error", ({ message }) =>
+        setError(message)
+      );
+      player.addListener("authentication_error", ({ message }) =>
+        setError(message)
+      );
+      player.addListener("account_error", ({ message }) => setError(message));
+      player.addListener("playback_error", ({ message }) => setError(message));
       player.addListener("player_state_changed", (state) => {
-        dispatch({
-          type: actions.SET_PLAYER_STATE,
-          playerState: state,
-        });
-
-        console.log(state);
+        setPlayback(state);
       });
 
       player.addListener("ready", ({ device_id }) => {
-        dispatch({
-          type: actions.PLAYER_READY,
-          device_id,
-        });
-
-        console.log("ready", device_id);
+        setDeviceId(device_id);
+        setIsReady(true);
       });
 
-      player.addListener("not_ready", ({ device_id }) => {
-        console.log("Device ID is not ready for playback", device_id);
-      });
+      player.addListener("unready", () => setIsReady(false));
 
       player.connect();
     };
 
-    loadScript("https://sdk.scdn.co/spotify-player.js");
+    loadScript("https://sdk.scdn.co/spotify-player.js").catch((error) =>
+      setError(error)
+    );
   }, []);
 
   useEffect(() => {
     if (deviceId) {
-      spotifyApi.transferMyPlayback([deviceId], {play: false});
+      spotifyApi.transferMyPlayback([deviceId], { play: false });
     }
   }, [deviceId]);
 
-  return { state, dispatch };
+  return { player, playback, isReady, error };
 }

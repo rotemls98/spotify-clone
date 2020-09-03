@@ -16,7 +16,8 @@ export function promisify(f) {
   };
 }
 
-export function loadScript(src, callback) {
+
+export const loadScript = promisify((src, callback) => {
   let script = document.createElement("script");
   script.src = src;
 
@@ -24,9 +25,7 @@ export function loadScript(src, callback) {
   script.onerror = () => callback(new Error(`Script load error for ${src}`));
 
   document.head.append(script);
-}
-
-loadScript = promisify(loadScript);
+});
 
 export function millisToMinutesAndSeconds(millis) {
   const minutes = Math.floor(millis / 60000);

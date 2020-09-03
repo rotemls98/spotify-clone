@@ -3,13 +3,11 @@ import styles from "./currentSong.module.css";
 import { Link } from "react-router-dom";
 
 export default function CurrentSong({ currentTrack }) {
-  let item;
   let name;
   let albumId;
   let artists;
   let image;
   if (currentTrack) {
-    item = currentTrack.item;
     name = currentTrack.name;
     albumId = currentTrack.album.id;
     artists = currentTrack.artists;

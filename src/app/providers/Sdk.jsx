@@ -1,15 +1,24 @@
-import React, { Fragment, useReducer } from "react";
-import { useEffect } from "react";
-import { promisify, loadScript } from "../../utils/utils";
-import { spotifyApi } from "../../App";
-import currentTrack from "./currentTrack";
+import React, { useContext } from "react";
 import useSetupPlayer from "./useSetupPlayer";
 
-export const TrackContext = React.createContext();
+export const PlaybackContext = React.createContext(null);
+export const PlayerContext = React.createContext(null);
 
 export default function Sdk({ children }) {
-  const {state: track, dispatch} = useSetupPlayer();
+  const { player, playback, isReady } = useSetupPlayer();
   return (
-    <TrackContext.Provider value={track}>{children}</TrackContext.Provider>
+    <PlaybackContext.Provider value={playback}>
+      <PlayerContext.Provider value={player}>
+        {isReady && children}
+      </PlayerContext.Provider>
+    </PlaybackContext.Provider>
   );
+}
+
+export function usePlayer() {
+  return useContext(PlayerContext);
+}
+
+export function usePlayback() {
+  return useContext(PlaybackContext);
 }

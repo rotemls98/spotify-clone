@@ -1,43 +1,40 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React from "react";
 import {
   mdiPlayCircleOutline,
   mdiPauseCircleOutline,
   mdiSkipNext,
   mdiSkipPrevious,
 } from "@mdi/js";
+import { usePlayback, usePlayer } from "../../../providers/Sdk";
 import Icon from "../../../../common/components/Icon";
-import { TrackContext } from "../../../providers/Sdk";
-import classNames from "classnames";
 import TrackSlider from "./trackSlider/TrackSlider";
 import styles from "./playBarInputs.module.css";
 
-export default function PlayBarInputs({ currentTrack }) {
-  const track = useContext(TrackContext);
-  let progress = 0;
-  let duration = 0;
+export default function PlayBarInputs() {
+  const player = usePlayer();
+  const playback = usePlayback();
+  let duration;
   let paused = true;
 
-  if (track?.playerState) {
-    duration = track.playerState.duration;
-    progress = track.playerState.position;
-    paused = track.playerState.paused;
+  if (playback) {
+    duration = playback.duration;
+    paused = playback.paused;
   }
 
   const handleToggle = () => {
     if (paused) {
-      window.player.resume();
+      player.resume();
+    } else {
+      player.pause();
     }
-    else {
-      window.player.pause();
-    }
-  }
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.actions}>
         <button
           className={styles.actionButton}
-          onClick={() => window.player.nextTrack()}
+          onClick={() => player.nextTrack()}
         >
           <Icon path={mdiSkipNext} />
         </button>
@@ -49,13 +46,10 @@ export default function PlayBarInputs({ currentTrack }) {
           )}
         </button>
         <button className={styles.actionButton}>
-          <Icon
-            path={mdiSkipPrevious}
-            onClick={() => window.player.previousTrack()}
-          />
+          <Icon path={mdiSkipPrevious} onClick={() => player.previousTrack()} />
         </button>
       </div>
-      <TrackSlider paused={paused} initialTime={progress} duration={duration} />
+      <TrackSlider player={player} paused={paused} duration={duration} />
     </div>
   );
 }

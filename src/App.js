@@ -41,7 +41,7 @@ const useLogin = () => {
         })
         .catch((res) => {
           // token expired or invalid
-          if (res.status === 401 || res instanceof TypeError) {
+          if (res.status === 401) {
             setToken("");
             window.location.replace(accessUrl);
           }

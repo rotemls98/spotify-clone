@@ -3,56 +3,56 @@ import Slider from "../../../../../common/components/Slider";
 import { millisToMinutesAndSeconds } from "../../../../../utils/utils";
 import styles from "./trackSlider.module.css";
 
-export default function TrackSlider({ duration, initialTime = 0, paused }) {
-  const [time, setTime] = useState(initialTime);
+export default function TrackSlider({ player, duration }) {
+  const [time, setTime] = useState(0);
+  const [dragging, setDragging] = useState(false);
   const interval = useRef(null);
-  const pos = (time * 100) / duration;
 
   useEffect(() => {
-    setTime(initialTime);
-  }, [initialTime]);
-
-  useEffect(() => {
-    if (duration && !paused) {
+    if (duration && !dragging) {
       interval.current = setInterval(
-        () => setTime((prev) => (prev >= duration ? 0 : prev + 1000)),
+        () =>
+          player.getCurrentState().then(({ position }) => setTime(position)),
         1000
       );
     }
-    
-    return () => {
-      clearInterval(interval.current);
-    };
-  }, [duration, paused]);
 
-  const handleTimeChange = (pos) => {
+    return () => clearInterval(interval.current);
+  }, [player, duration, dragging]);
+
+  const handleTimeChange = (pos, e) => {
     const time = (pos * duration) / 100;
     setTime(time);
-    window.player.seek(time)
+
+    if (e.type === "click") {
+      player.seek(time);
+    }
   };
 
-  const handleDrag = () => {
-    clearInterval(interval.current);
-  };
+  const handleDragEnd = (pos, e) => {
+    const time = (pos * duration) / 100;
+    setDragging(false);
+    setTime(time);
+    player.seek(time);
+  }
 
-  const handleDragEnd = () => {
-    interval.current = setInterval(
-      () => setTime((prev) => (prev >= duration ? 0 : prev + 1000)),
-      1000
-    );
-  };
+  const timeFormatted = time ? millisToMinutesAndSeconds(time) : "00:00";
+  const durationFormatted = duration
+    ? millisToMinutesAndSeconds(duration)
+    : "00:00";
 
-  const timeFormatted = time ? millisToMinutesAndSeconds(time) : '00:00';
-  const durationFormatted = duration ? millisToMinutesAndSeconds(duration) : '00:00';
+  let pos = (time * 100) / duration;
+  pos = pos > 100 ? 100 : pos;   
   return (
     <div className={styles.container}>
       <div className={styles.sliderText}>{timeFormatted}</div>
       <Slider
-        onChange={handleTimeChange}
+        dragging={dragging}
         position={pos}
+        onChange={handleTimeChange}
+        onDragStart={() => setDragging(true)}
+        onDragEnd={handleDragEnd}
         className={styles.slider}
-        onDrag={handleDrag}
-        onEndDrag={handleDragEnd}
       />
       <div className={styles.sliderText}>{durationFormatted}</div>
     </div>

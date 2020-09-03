@@ -1,12 +1,19 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 import styles from "./slider.module.css";
 
-const Slider = ({ position, className, onChange = () => {}, onDrag = () => {}, onEndDrag = () => {}}) => {
+const Slider = ({
+  position,
+  dragging,
+  className,
+  onChange,
+  onDragStart,
+  onDragEnd,
+}) => {
   const bar = useRef(null);
-  const [dragging, setDragging] = useState(false);
 
-  const setNewPos = (e) => {
+  const getPos = (e) => {
     const { x, width } = bar.current.getBoundingClientRect();
     let newPos = ((e.clientX - x) * 100) / width;
     if (newPos > 100) {
@@ -14,16 +21,21 @@ const Slider = ({ position, className, onChange = () => {}, onDrag = () => {}, o
     } else if (newPos < 0) {
       newPos = 0;
     }
+    return newPos;
+  }
+
+  const setNewPos = (e) => {
+    let newPos = getPos(e);
     onChange(newPos, e);
   };
 
   const handleMouseDown = (e) => {
-    setDragging(true);
-    onDrag();
+    onDragStart(e);
     document.addEventListener("mousemove", setNewPos);
-    function remove() {
-      setDragging(false);
-      onEndDrag();
+    
+    function remove(e) {
+      let pos = getPos(e);
+      onDragEnd(pos, e);
       document.removeEventListener("mousemove", setNewPos);
       document.removeEventListener("mouseup", remove);
     }
@@ -31,15 +43,22 @@ const Slider = ({ position, className, onChange = () => {}, onDrag = () => {}, o
   };
 
   const handleClick = (e) => {
-    const { x, width } = bar.current.getBoundingClientRect();
-    const newPos = ((e.clientX - x) * 100) / width;
+    let newPos = getPos(e);
     onChange(newPos, e);
   };
 
-  const barClassName = classNames(styles.bar, dragging && styles.dragging, className);
+  const barClassName = classNames(
+    styles.bar,
+    dragging && styles.dragging,
+    className
+  );
+  
   return (
     <div ref={bar} className={barClassName} onClick={handleClick}>
-      <span className={styles.innerBar} style={{ width: `${position}%` }} />
+      <span
+        className={styles.innerBar}
+        style={{ transform: `scaleX(${position / 100})` }}
+      />
       <button
         onMouseDown={handleMouseDown}
         className={styles.button}
@@ -48,5 +67,14 @@ const Slider = ({ position, className, onChange = () => {}, onDrag = () => {}, o
     </div>
   );
 };
+
+Slider.propTypes = {
+  position: PropTypes.number.isRequired,
+  dragging: PropTypes.bool.isRequired,
+  onDragStart: PropTypes.func.isRequired,
+  onDragEnd: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  className: PropTypes.string
+}
 
 export default Slider;
