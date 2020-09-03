@@ -6,6 +6,7 @@ import Player from "./app/player/Player";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { accessUrl } from "./spotifyConfig";
 import { CurrentUserContext } from "./app/CurrentUserContext";
+import Sdk from "./app/providers/Sdk";
 
 export const spotifyApi = new SpotifyWebApi();
 
@@ -26,7 +27,7 @@ const useLogin = () => {
         setToken(urlToken);
       }
     }
-  }, [token]);
+  }, [token, setToken]);
 
   useEffect(() => {
     if (token) {
@@ -40,18 +41,18 @@ const useLogin = () => {
         })
         .catch((res) => {
           // token expired or invalid
-          if (res.status === 401 || res instanceof TypeError) {
+          if (res.status === 401) {
             setToken("");
             window.location.replace(accessUrl);
           }
         });
     }
-  }, [token]);
+  }, [token, setToken]);
 
   const disconnect = useCallback(() => {
     setToken("");
     window.location.replace(window.location.origin);
-  }, []);
+  }, [setToken]);
 
   return { user, loading, token, disconnect };
 };
@@ -76,7 +77,9 @@ function App() {
             {firstLogin && <Redirect to="/login" />}
             {user && (
               <Route path="/">
+                <Sdk>
                 <Player />
+                </Sdk>
               </Route>
             )}
           </Switch>

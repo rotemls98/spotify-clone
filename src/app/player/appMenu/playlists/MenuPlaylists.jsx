@@ -13,18 +13,19 @@ export default function MenuPlaylists() {
   }, []);
 
   return (
-    <div className={styles.playlists}>
+    <div className={styles.container}>
       <div className={styles.title}>פליילסטים</div>
       <div className={styles.list}>
         {playlists.map(({ id, name }) => (
-          <NavLink
-            to={`/playlist/${id}`}
-            key={id}
-            className={styles.playlist}
-            activeClassName={styles.selected}
-          >
-            {name}
-          </NavLink>
+          <div key={id} className={styles.playlist}>
+            <NavLink
+              to={`/playlist/${id}`}
+              className={styles.playlistLink}
+              activeClassName={styles.selected}
+            >
+              {name}
+            </NavLink>
+          </div>
         ))}
       </div>
     </div>

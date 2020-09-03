@@ -5,6 +5,7 @@ const clientId = process.env.REACT_APP_CLIENT_ID;
 const redirectUri = window.location.origin;
 
 const scopes = [
+    "streaming",
     "user-read-email",
     "user-read-private",
     "user-top-read",
@@ -15,4 +16,4 @@ const scopes = [
   ];
 
 
-export const accessUrl = `${endpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`;
+export const accessUrl = `${endpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=false`;

@@ -1,0 +1,40 @@
+.bar {
+  position: relative;
+  width: 100%;
+  background-color: grey;
+  height: 5px;
+  border-radius: 8px;
+}
+
+.innerBar {
+    position: absolute;
+    background-color: white;
+    left: 0;
+    transform-origin: left;
+    width: inherit;
+    height: inherit;
+    border-radius: 8px;
+}
+
+.bar:hover > .innerBar, .bar.dragging > .innerBar {
+    background-color: #1db954;
+}
+
+.bar:hover > .button, .bar.dragging > .button  {
+    display: initial;
+}
+
+.button {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    outline: none;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    padding: 0;
+    top: 50%;
+    bottom: 50%;
+    margin: auto 0;
+    border: 0;
+}

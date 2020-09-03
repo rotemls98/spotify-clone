@@ -1,13 +1,27 @@
 .playlist {
   font-size: 14px;
   padding: 8px 0;
+  display: flex;
+}
+
+.playlistLink {
+  text-overflow: ellipsis;
+  margin-left: 16px;
+  overflow-x: hidden;
   color: #b3b3b3;
-  align-items: center;
   text-decoration: none;
 }
 
-.playlist:hover, .playlist:focus, .playlist.selected {
-    color: white;
+.playlistLink:hover,
+.playlistLink:focus,
+.playlistLink.selected {
+  color: white;
+}
+
+.container {
+  display: flex;
+  overflow-y: hidden;
+  flex-direction: column;
 }
 
 .title {
@@ -16,7 +30,11 @@
 }
 
 .list {
-    margin-top: 8px;
-    display: flex;
-    flex-direction: column;
+  margin-top: 8px;
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }

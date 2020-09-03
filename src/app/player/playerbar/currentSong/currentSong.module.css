@@ -1,0 +1,62 @@
+
+
+.container {
+    margin-left: 16px;
+    width: 30%;
+    display: flex;
+    align-items: center;
+}
+
+.info {
+    margin-right: 16px;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.image {
+    height: 56px;
+    width: 56px;
+}
+
+.name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-decoration-line: none;
+    color: white;
+    text-align: right;
+    font-weight: 500;
+}
+
+.name:hover {
+    text-decoration-line: underline;
+}
+
+.artists {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: grey;
+    text-align: right;
+}
+
+.artist {
+    display: inline;
+    text-decoration-line: none;
+    font-size: 14px;
+    color: inherit;
+    overflow: hidden;
+
+}
+
+.comma {
+    display: inline;
+    margin-right: 4px;
+    font-size: 14px;
+    color: inherit;
+}
+
+.artist:hover {
+    text-decoration-line: underline;
+}
