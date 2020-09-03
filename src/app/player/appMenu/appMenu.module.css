@@ -1,23 +1,67 @@
-
-
 .appMenu {
-    grid-area: nav-bar;
-    width: 240px;
-    color: grey;
-    padding: 8px;
-    background-color: #040404;
+  grid-area: nav-bar;
+  width: 240px;
+  color: grey;
+  background-color: #040404;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  padding: 0 8px;
+  flex: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .menuLogo {
-    color: white;
-    margin-top: 16px;
-    margin-left: 64px;
-    margin-right: 16px;
-    padding-bottom: 4px;
+  color: white;
+  margin-top: 24px;
+  margin-left: 72px;
+  margin-right: 24px;
+  padding-bottom: 4px;
 }
 
 .divider {
-    border: none;
-    background-color: grey;
-    height: 1px;
+  border: none;
+  background-color: grey;
+  height: 1px;
+  min-height: 1px;
+  width: 100%;
+}
+
+.footer {
+  outline: none;
+  justify-content: center;
+  font-size: 14px;
+  padding: 12px;
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  margin-top: auto;
+  text-decoration-line: none;
+  color: inherit;
+  background-color: black;
+  transition-timing-function: linear;
+  transition-duration: 0.2s;
+}
+
+.downloadIcon {
+  margin-left: 16px;
+  height: 24px;
+  width: 24px;
+  fill: grey;
+  transition-timing-function: linear;
+  transition-duration: 0.2s;
+}
+
+.footer:hover,
+.footer:focus {
+  color: #ffffffd2;
+}
+
+.footer:hover,
+.footer:focus > .downloadIcon {
+  fill: #ffffffd2;
 }

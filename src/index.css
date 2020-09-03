@@ -24,3 +24,16 @@ code {
   box-sizing: border-box;
   direction: rtl;
 }
+
+::-webkit-scrollbar {
+  opacity: 0;
+  width: 16px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: grey;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(150, 150, 150);
+}
