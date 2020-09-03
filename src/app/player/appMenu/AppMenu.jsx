@@ -2,9 +2,9 @@ import React from "react";
 import SpotifyLogo from "./SpotifyLogo";
 import MenuShortcuts from "./shortcuts/MenuShortcuts";
 import MenuPlaylists from "./playlists/MenuPlaylists";
-import styles from "./appMenu.module.css";
+import { mdiDownloadCircleOutline } from "@mdi/js";
 import Icon from "../../../common/components/Icon";
-import { mdiDownloadCircle, mdiDownloadCircleOutline } from "@mdi/js";
+import styles from "./appMenu.module.css";
 
 export default function AppMenu() {
   return (
@@ -17,7 +17,7 @@ export default function AppMenu() {
         <hr className={styles.divider} />
         <MenuPlaylists />
       </div>
-      <a href="https://www.spotify.com/us/download" target="_blank" className={styles.footer}>
+      <a href="https://www.spotify.com/us/download" rel="noopener noreferrer" target="_blank" className={styles.footer}>
         <Icon className={styles.downloadIcon} path={mdiDownloadCircleOutline}></Icon>
         <div> להתקנת האפליקציה</div>
       </a>
