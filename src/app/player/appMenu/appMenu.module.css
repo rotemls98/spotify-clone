@@ -61,7 +61,6 @@
   color: #ffffffd2;
 }
 
-.footer:hover,
-.footer:focus > .downloadIcon {
+.footer:focus > .downloadIcon, .footer:hover > .downloadIcon {
   fill: #ffffffd2;
 }
