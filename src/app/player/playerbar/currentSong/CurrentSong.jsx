@@ -19,10 +19,10 @@ export default function CurrentSong({ currentTrack }) {
         <>
           <img className={styles.image} src={image} alt="album" />
           <div className={styles.info}>
-            <Link to={`/album/${albumId}`} className={styles.name}>
+            <Link dir='auto' to={`/album/${albumId}`} className={styles.name}>
               {name}
             </Link>
-            <div className={styles.artists}>
+            <div dir='auto' className={styles.artists}>
               {artists?.map(({ name, id }, i) => (
                 <Fragment key={id}>
                   <Link to={`/artist/${id}`} className={styles.artist}>

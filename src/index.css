@@ -22,7 +22,6 @@ code {
 
 * {
   box-sizing: border-box;
-  direction: rtl;
 }
 
 ::-webkit-scrollbar {
