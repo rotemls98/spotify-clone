@@ -23,7 +23,7 @@ export default function CurrentSong({ currentTrack }) {
               {name}
             </Link>
             <div dir='auto' className={styles.artists}>
-              {artists?.map(({ name, id }, i) => (
+              {artists.map(({ name, id }, i) => (
                 <Fragment key={id}>
                   <Link to={`/artist/${id}`} className={styles.artist}>
                     {name}

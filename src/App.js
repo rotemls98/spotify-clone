@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import SpotifyWebApi from "spotify-web-api-js";
 import Login from "./app/login/Login";
 import Player from "./app/player/Player";
@@ -22,7 +22,7 @@ const useLogin = () => {
       const url = new URL(window.location.href);
       const response = url.hash.split("&");
       const urlToken = response[0].split("=")[1];
-      window.location.hash = "";
+      // window.location.hash = "";
       if (urlToken) {
         setToken(urlToken);
       }
@@ -31,7 +31,7 @@ const useLogin = () => {
 
   useEffect(() => {
     if (token) {
-      window.location.hash = "";
+      // window.location.hash = "";
       spotifyApi.setAccessToken(token);
       spotifyApi
         .getMe()
@@ -42,6 +42,7 @@ const useLogin = () => {
         .catch((res) => {
           // token expired or invalid
           if (res.status === 401) {
+            debugger;
             setToken("");
             window.location.replace(accessUrl);
           }
@@ -69,7 +70,6 @@ function App() {
   return (
     <div className="App">
       <CurrentUserContext.Provider value={login}>
-        <BrowserRouter>
           <Switch>
             <Route path="/login">
               <Login />
@@ -83,7 +83,6 @@ function App() {
               </Route>
             )}
           </Switch>
-        </BrowserRouter>
       </CurrentUserContext.Provider>
     </div>
   );

@@ -16,4 +16,4 @@ const scopes = [
   ];
 
 
-export const accessUrl = `${endpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=false`;
+export const accessUrl = `${endpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`;

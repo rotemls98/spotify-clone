@@ -11,15 +11,17 @@ export default function PlayBar() {
     const [currentTrackInfo, setCurrentTrack] = useState();
 
     let trackId;
+    let type;
     if (playback) {
         trackId = playback.track_window.current_track.id;
+        type = playback.track_window.current_track.type;
     }
     
     useEffect(() => {
         if (trackId) {
             spotifyApi.getTrack(trackId).then(setCurrentTrack);
         }
-    }, [trackId]);
+    }, [trackId, type]);
 
     return (
         <div className={styles.playBar}>
