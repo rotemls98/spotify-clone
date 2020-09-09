@@ -27,3 +27,7 @@
   color: white;
   border-width: 0;
 }
+
+.error {
+  margin: 32px 0;
+}

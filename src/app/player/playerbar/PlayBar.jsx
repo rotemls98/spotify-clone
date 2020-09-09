@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CurrentSong from './currentSong/CurrentSong';
 import PlayBarInputs from './playBarInputs/PlayBarInputs';
 import PlayBarVolume from './playbarVolume/PlayBarVolume';
-import { spotifyApi } from '../../../App';
+import spotifyApi  from '../../../api';
 import { usePlayback } from '../../providers/Sdk';
 import styles from './playbar.module.css';
 

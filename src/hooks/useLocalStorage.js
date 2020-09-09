@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-export default function useLocalStorage(key, initialValue = "") {
+export default function useLocalStorage(key, initialValue = {}) {
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key);
@@ -14,8 +14,13 @@ export default function useLocalStorage(key, initialValue = "") {
   const setValue = useCallback(
     (value) => {
       try {
-        setStoredValue(value);
-        window.localStorage.setItem(key, JSON.stringify(value));
+        if (value === null || value === undefined) {
+          window.localStorage.removeItem(key);
+          setStoredValue({});
+        } else {
+          setStoredValue(value);
+          window.localStorage.setItem(key, JSON.stringify(value));
+        }
       } catch (error) {
         console.log(error);
       }

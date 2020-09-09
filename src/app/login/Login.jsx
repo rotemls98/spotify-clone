@@ -11,7 +11,9 @@ export default function Login({ error }) {
         alt="logo"
       />
       {error && (
-        <div data-testid="error-login">לא ניתן להתחבר לאפליקציה ללא אישור</div>
+        <div className={styles.error} data-testid="error-login">
+          לא ניתן להתחבר לאפליקציה ללא אישור
+        </div>
       )}
       <button
         onClick={() => window.location.replace(accessUrl)}

@@ -10,7 +10,7 @@
 
 .content {
   padding: 0 8px;
-  flex: auto;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
 }
