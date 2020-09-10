@@ -9,7 +9,7 @@ export default function Sdk({ children }) {
   return (
     <PlaybackContext.Provider value={playback}>
       <PlayerContext.Provider value={player}>
-        {isReady && children}
+        {children(isReady)}
       </PlayerContext.Provider>
     </PlaybackContext.Provider>
   );
