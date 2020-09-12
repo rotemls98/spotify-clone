@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Icon from "../../../../common/components/Icon";
 import styles from "./playBarVolume.module.css";
-import { mdiVolumeSource, mdiVoiceOff, mdiVolumeOff } from "@mdi/js";
+import { mdiVolumeSource, mdiVolumeOff } from "@mdi/js";
 import Slider from "../../../../common/components/Slider";
 import { usePlayer } from "../../../providers/Sdk";
 
@@ -17,6 +17,19 @@ export default function PlayBarVolume() {
       setVolume(volumePercentage);
     });
   }, [player]);
+
+  useEffect(() => {
+    if (!dragging) {
+      const updateVolume = () =>
+        player.getVolume().then((volume) => {
+          const volumePercentage = volume * 100;
+          setVolume(volumePercentage);
+        });
+
+      const interval = setInterval(updateVolume, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [player, dragging]);
 
   const handleChangeSlider = (pos, e) => {
     if (volume) {

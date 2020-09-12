@@ -1,92 +1,38 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import SpotifyWebApi from "spotify-web-api-js";
-import Login from "./app/login/Login";
+import React, { useMemo } from "react";
+import { Switch, Redirect, Route } from "react-router-dom";
 import Player from "./app/player/Player";
-import useLocalStorage from "./hooks/useLocalStorage";
-import { accessUrl } from "./spotifyConfig";
+import Login from "./app/login/Login";
 import { CurrentUserContext } from "./app/CurrentUserContext";
-import Sdk from "./app/providers/Sdk";
+import { useLogin } from "./useLogin";
+import Busy from "./common/components/Busy";
+import styles from "./app.module.css";
 
-export const spotifyApi = new SpotifyWebApi();
+export default function NewApp() {
+  const { user, loading, error, disconnect } = useLogin();
 
-const useLogin = () => {
-  const [user, setUser] = useState();
-  const [token, setToken] = useLocalStorage("token");
-  const [loading, setLoading] = useState(
-    !!token || window.location.hash.length > 1
-  );
-
-  useEffect(() => {
-    if (!token) {
-      const url = new URL(window.location.href);
-      const response = url.hash.split("&");
-      const urlToken = response[0].split("=")[1];
-      window.location.hash = "";
-      if (urlToken) {
-        setToken(urlToken);
-      }
-    }
-  }, [token, setToken]);
-
-  useEffect(() => {
-    if (token) {
-      window.location.hash = "";
-      spotifyApi.setAccessToken(token);
-      spotifyApi
-        .getMe()
-        .then((user) => {
-          setUser(user);
-          setLoading(false);
-        })
-        .catch((res) => {
-          // token expired or invalid
-          if (res.status === 401) {
-            setToken("");
-            window.location.replace(accessUrl);
-          }
-        });
-    }
-  }, [token, setToken]);
-
-  const disconnect = useCallback(() => {
-    setToken("");
-    window.location.replace(window.location.origin);
-  }, [setToken]);
-
-  return { user, loading, token, disconnect };
-};
-
-function App() {
-  const { user, loading, token, disconnect } = useLogin();
-  const firstLogin = !token && !loading;
   const login = useMemo(() => ({ user, disconnect }), [user, disconnect]);
 
-  useEffect(() => {
-    document.addEventListener("contextmenu", (e) => e.preventDefault());
-  }, []);
-
   return (
-    <div className="App">
-      <CurrentUserContext.Provider value={login}>
-        <BrowserRouter>
-          <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            {firstLogin && <Redirect to="/login" />}
-            {user && (
-              <Route path="/">
-                <Sdk>
-                <Player />
-                </Sdk>
-              </Route>
-            )}
-          </Switch>
-        </BrowserRouter>
-      </CurrentUserContext.Provider>
+    <div className={styles.app}>
+      <Switch>
+        <Route path="/login">
+          <Login error={error} />
+        </Route>
+        <Route path="/">
+          {error && <Redirect to="/login"></Redirect>}
+          {!loading ? (
+            user ? (
+                <CurrentUserContext.Provider value={login}>
+                  <Player />
+                </CurrentUserContext.Provider>
+            ) : (
+              <Redirect to="/login" />
+            )
+          ) : (
+            <Busy data-testid="login-busy" className={styles.busy} />
+          )}
+        </Route>
+      </Switch>
     </div>
   );
 }
-
-export default App;

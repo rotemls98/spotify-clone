@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { spotifyApi } from "../../../../App";
+import spotifyApi from "../../../../api";
 import { NavLink } from "react-router-dom";
 import styles from "./meunPlaylist.module.css";
 

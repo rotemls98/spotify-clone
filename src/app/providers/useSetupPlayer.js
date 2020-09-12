@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { spotifyApi } from "../../App";
+import spotifyApi from "../../api";
 import { loadScript } from "../../utils/utils";
 
 export default function useSetupPlayer() {

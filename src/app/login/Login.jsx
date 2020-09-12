@@ -2,7 +2,7 @@ import React from "react";
 import { accessUrl } from "../../spotifyConfig";
 import styles from "./login.module.css";
 
-export default function Login() {
+export default function Login({ error }) {
   return (
     <div className={styles.login}>
       <img
@@ -10,6 +10,11 @@ export default function Login() {
         className={styles.loginLogo}
         alt="logo"
       />
+      {error && (
+        <div className={styles.error} data-testid="error-login">
+          לא ניתן להתחבר לאפליקציה ללא אישור
+        </div>
+      )}
       <button
         onClick={() => window.location.replace(accessUrl)}
         className={styles.loginButton}

@@ -32,3 +32,8 @@ export function millisToMinutesAndSeconds(millis) {
   const seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 }
+
+
+export function isObjEmpty(obj) {
+  return !!(obj && Object.keys(obj).length === 0 && obj.constructor === Object)
+}

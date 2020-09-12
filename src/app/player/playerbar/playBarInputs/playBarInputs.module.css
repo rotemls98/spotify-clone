@@ -27,8 +27,16 @@
     width: 32px;
 }
 
+.actionButton:disabled > svg {
+    fill: rgba(107, 107, 107, 0.575);
+}
+
 .actionButton:hover > svg {
     fill: white
+}
+
+.actionButton:disabled > .iconDisabled {
+    fill: rgba(107, 107, 107, 0.575);
 }
 
 .slider {

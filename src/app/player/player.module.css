@@ -9,3 +9,13 @@
         "nav-bar content content"
         "play-bar play-bar play-bar";
 }
+
+.busy {
+    margin: auto;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
