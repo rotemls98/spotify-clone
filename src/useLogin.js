@@ -17,7 +17,6 @@ export function useLogin() {
   useEffect(() => {
     if (hash && Object.keys(authorization).length === 0) {
       const hashValue = readFromHash(hash);
-      debugger;
       window.location.hash = "";
       if (Object.keys(hashValue).length > 0) {
         const { access_token: token, expires_in: expires } = hashValue;
