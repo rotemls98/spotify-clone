@@ -12,6 +12,7 @@ import App from "./App";
 import spotifyApi from "./api";
 import { accessUrl } from "./spotifyConfig";
 import { useLogin } from "./useLogin";
+import { renderWithRouter } from "./testUtils/testUtils";
 
 spotifyApi.getMe = jest.fn().mockResolvedValue({
   country: "IL",
@@ -56,22 +57,6 @@ window.localStorage = window.sessionStorage = {
     return delete this[key];
   },
 };
-
-function renderWithRouter(
-  ui,
-  {
-    route = "/",
-    history = createMemoryHistory({ initialEntries: [route] }),
-  } = {}
-) {
-  const Wrapper = ({ children }) => (
-    <Router history={history}>{children}</Router>
-  );
-  return {
-    ...render(ui, { wrapper: Wrapper }),
-    history,
-  };
-}
 
 const oldWindowLocation = window.location;
 

@@ -47,7 +47,7 @@ export default function useSetupPlayer() {
 
   useEffect(() => {
     if (deviceId) {
-      spotifyApi.transferMyPlayback([deviceId], { play: false });
+      spotifyApi.transferMyPlayback([deviceId], { play: true });
     }
   }, [deviceId]);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import AppContent from "./appContent/AppContent";
 import AppMenu from "./appMenu/AppMenu";
 import Header from "./header/Header";
@@ -9,21 +9,30 @@ import styles from "./player.module.css";
 
 export default function Player() {
   return (
-      <div data-testid='main-app' className={styles.container}>
-        <Sdk>
+    <div data-testid="main-app" className={styles.container}>
+      <Sdk>
         {(isReady) =>
-            isReady ? (
-            <div className={styles.player}>
-                <Header />
-                <AppMenu />
-                <PlayBar />
-                <AppContent />
-            </div>
-            ) : (
+          isReady ? (
+            <PlayerMain />
+          ) : (
             <Busy className={styles.busy} data-testid="busy-player" />
-            )
+          )
         }
-        </Sdk>
-      </div>
+      </Sdk>
+    </div>
   );
 }
+
+const PlayerMain = () => {
+  const container = useRef();
+  const headerRef = useRef();
+
+  return (
+    <div className={styles.player}>
+      <Header containerRef={container} headerRef={headerRef} />
+      <AppMenu />
+      <PlayBar />
+      <AppContent containerRef={container} headerRef={headerRef} />
+    </div>
+  );
+};

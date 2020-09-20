@@ -4,9 +4,15 @@
 .content {
     grid-area: content;
     background-color: #121212;
-    color: white
+    color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .innerContent {
-    margin-top: 64px;
+    height: calc(100% - 64px);
+}
+
+.start {
+    height: 64px;
 }

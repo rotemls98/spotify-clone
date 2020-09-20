@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  padding: 24px;
+}
+
+.image {
+  height: 232px;
+  width: 232px;
+  box-shadow: 0 4px 60px rgba(0,0,0,.5);
+}
+
+
+.iconWrapper {
+  height: 232px;
+  width: 232px;
+  background-color: #282828;
+  display: flex;
+  box-shadow: 0 4px 60px rgba(0,0,0,.5);
+}
+
+.icon {
+  margin: auto;
+  height: 80px;
+  width: 80px;
+  fill:grey
+}
+
+.info {
+  margin-right: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.type {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.name {
+  margin: 8px 0;  
+  font-size: 80px;
+  font-weight: bold;
+}
+
+.user {
+  font-weight: bold;
+  font-size: 14px;  
+  text-decoration-line: none;
+  color: inherit;
+}
+
+.user:hover {
+  text-decoration-line: underline;
+}

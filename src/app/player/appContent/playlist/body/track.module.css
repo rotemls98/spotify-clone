@@ -1,0 +1,91 @@
+
+
+.track {
+    display: flex;
+    align-items: center;
+    color: grey;
+    padding: 8px;
+}
+
+.track.playing {
+    color: #1db954;
+}
+
+.track.playing > svg {
+    fill: #1db954;
+}
+
+.track:hover {
+    background-color: rgba(71, 71, 71, 0.5);
+}
+
+.musicIcon {
+    height: 20px;
+    width: 20px;
+    fill: grey;
+    align-self: flex-start;
+    margin-top: 4px;
+}
+
+.playIcon {
+    display: none;
+    height: 20px;
+    width: 20px;
+    fill: white;
+    align-self: flex-start;
+    margin-top: 4px;
+}
+
+.track:hover > .playIcon {
+    display: initial;
+}
+
+.track:hover > .musicIcon {
+    display: none;
+}
+
+.info {
+    margin-left: 48px;
+    margin-right: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.name {
+    color: white;
+}
+
+.playing .name {
+    color: inherit;
+}
+
+.subInfo {
+    display: flex;
+    align-items: center;
+}
+
+.dot {
+    margin: 0 4px;
+    color: grey;
+}
+
+.album {
+    color: grey;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-decoration-line: none;
+    font-size: 14px;
+    align-self: flex-end;
+}
+
+.album:hover {
+    text-decoration-line: underline;
+}
+
+.time {
+    margin-right: auto;
+    align-self: flex-start;
+    margin-top: 2px;
+}
